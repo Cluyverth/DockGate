@@ -1,0 +1,21 @@
+# Nginx Reverse Proxy .gitignore
+# SSL certificates (never commit private keys!)
+certs/*
+!certs/.gitkeep
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.swp
+*.bak
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
