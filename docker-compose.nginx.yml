@@ -1,0 +1,37 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx-reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./mime.types:/etc/nginx/mime.types:ro
+      - ./snippets:/etc/nginx/snippets:ro
+      - ./http.d:/etc/nginx/http.d:ro
+      - ./error_pages:/etc/nginx/error_pages:ro
+      - ./certs:/etc/nginx/certs:ro
+    restart: unless-stopped
+    networks:
+      - proxy
+    # Security best practices:
+    read_only: true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+# The 'proxy' network allows Nginx to communicate with backend containers by service name.
+# Ensure your backend services join this network for service discovery.
+networks:
+  proxy:
+    driver: bridge
