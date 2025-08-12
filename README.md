@@ -1,4 +1,4 @@
-# Nginx Reverse Proxy Boilerplate
+# DockGate
 
 This project provides a ready-to-use, production-oriented Nginx reverse proxy setup for your VPS, fully containerized with Docker. It is designed to be cloned and deployed quickly, with minimal configuration required.
 
